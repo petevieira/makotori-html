@@ -2,7 +2,7 @@ Welcome\! This wiki is for my own personal interests and investigations.
 
 # Health
 
-## [Mind-Body Journal](Mind-Body_Journal "wikilink")
+## [Mind-Body Journal](mind-body-journal "wikilink")
 
 ## [Meditation](Meditation "wikilink")
 
