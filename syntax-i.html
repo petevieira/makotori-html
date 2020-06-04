@@ -5,262 +5,313 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>syntax-i</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-<h1 id="introduction">Introduction</h1>
-<ul>
-<li>That mental computations are performed not on a linear set of words but a hierarchical organized structure was an important discovery.</li>
-</ul>
-<h2 id="hypotheses_for_how_words_are_organized_in_a_sentence">Hypotheses for how words are organized in a sentence</h2>
-<ul>
-<li>H1: A sentence is a <u>collection of words</u>
-<ul>
-<li>False: There is nothing to distinguish the significance of word order in H1, but we know it's important.</li>
-</ul></li>
-<li>H2: A sentence is an <u>ordered collection of words</u>
-<ul>
-<li>False: There is nothing to specify what order is good or bad.</li>
-<li>Some substrings consist of words that "belong" more together than others. They are more <strong>cohesive</strong>.</li>
-</ul></li>
-<li>H3: A sentence is an <u>ordered collection of words groups by constituents</u></li>
-</ul>
-<h2 id="tests_for_cohesiveness_among_others">Tests for cohesiveness (among others)</h2>
-<h3 id="substitution">Substitution</h3>
-<ul>
-<li>That author described <u>his novel</u> to <u>the publisher</u> yesterday.
-<ul>
-<li>That author described his novel to [him] yesterday.</li>
-<li>That author described [it] to the publisher yesterday.</li>
-</ul></li>
-<li>This kind of substitution is not possible with non-cohesive strings.
-<ul>
-<li>Can you imagine substitutions for the underlined strings in the following sentence?
-<ul>
-<li>That author described his <u>novel to</u> the <u>publisher yesterday</u>.</li>
-</ul></li>
-</ul></li>
-</ul>
-<h3 id="movement">Movement</h3>
-<ul>
-<li>That author described <u>his novel</u> <u>to the publisher</u> yesterday.
-<ul>
-<li><em>His novel</em>, that author described to the publisher yesterday.</li>
-<li><em>To the publisher</em>, that author described his novel yesterday.</li>
-</ul></li>
-<li>Movement isn't possible with non-cohesive substrings
-<ul>
-<li>Can you move the underlined substrings in the following sentence?</li>
-<li>That author described his <u>novel to</u> the <u>publisher yesterday</u>.</li>
-</ul></li>
-</ul>
-<h3 id="questionsfragment_answers">Questions/Fragment answers</h3>
-<ul>
-<li>That author described <u>his novel</u> to <u>the publisher</u> yesterday.
-<ul>
-<li>Question 1
-<ul>
-<li>Q: [What] did that author describe to the publisher yesterday?</li>
-<li>A: [his novel]</li>
-</ul></li>
-<li>Question 2
-<ul>
-<li>Q: [Who] did that author describe his novel to yesterday?</li>
-<li>A: [the publisher]</li>
-</ul></li>
-<li>Invalid:
-<ul>
-<li>Q: ...?</li>
-<li>A: [novel to]</li>
-</ul></li>
-</ul></li>
-</ul>
-<h3 id="conclusions">Conclusions</h3>
-<ul>
-<li>"Cohesive substrings" = "constituents"</li>
-<li>Note of caution:
-<ul>
-<li>Constituency tests work fine but they are unidirectional</li>
-<li>If they succeed, we know that the relevant substring is a constituent</li>
-<li>If they fail, then either
-<ul>
-<li>the substring is not a constituent</li>
-<li>the substring is a constituent but the test failed for a different reason</li>
-</ul></li>
-</ul></li>
-<li>So, grammar treats some substrings differently from others.</li>
-<li>Some substrings form constituents, others do not.</li>
-</ul>
-<h2 id="organization_of_constituents">Organization of Constituents</h2>
-<ul>
-<li>Constituents are always <em>nested</em>. A constituent is <u><em>fully contained</em></u> in another constituent.</li>
-<li>We never find partially overlapping constituents: * <span style="color:red">[</span>word 1 <span style="color:blue">[</span>word 2<span style="color:red">]</span> word 3<span style="color:blue">]</span></li>
-</ul>
-<h3 id="terminology_of_structural_relations">Terminology of Structural Relations</h3>
-<ul>
-<li><strong>Dominance</strong>:
-<ul>
-<li>A node α dominates a node β iff there is a descending path from α to β.</li>
-</ul></li>
-<li><strong>Mothers</strong>/<strong>Daughters</strong>/<strong>Sisters</strong>:
-<ul>
-<li>A node α is the <u>mother</u> of a node β iff α immediately dominates β.</li>
-<li>β is the daughter of α.</li>
-<li>β and ɣ are sisters iff β and ɣ have the same mother α.</li>
-</ul></li>
-<li><strong>Terminal nodes</strong>:
-<ul>
-<li>A node α is a terminal node iff α has no daughters.</li>
-</ul></li>
-<li><strong>Exhaustive dominance</strong>:
-<ul>
-<li>A node α exhaustively dominates a string S iff
-<ol>
-<li>α dominates every terminal t∈S</li>
-<li>There is no terminal t'∉S that α dominates</li>
-</ol></li>
-</ul></li>
-<li><strong>Constituents</strong>:
-<ul>
-<li>Constituents are strings that are exhaustively dominated by a single node.</li>
-</ul></li>
-</ul>
-<h3 id="branching">Branching</h3>
-<ul>
-<li>We will assume that branching is only binary.</li>
-</ul>
-<h3 id="syntactic_tree">Syntactic Tree</h3>
-<ul>
-<li>A syntactic tree is a binary branching tree. It is built by iteration of a structure-building operation which has been called "Merge".</li>
-</ul>
-<h3 id="merge">Merge</h3>
-<ul>
-<li>Merge takes two elements α and β, and forms a single, binary branching constituent out of them.
-<ul>
-<li>Merge of two words:<br />
-<img src="img/syntax-tree-merge-two-words.png" title="fig:Syntax-tree-merge-two-words.png" width="100" alt="Syntax-tree-merge-two-words.png" /></li>
-<li>Merge of a word with a constituent formed by a previous iteration of Merge:<br />
-<img src="img/syntax-tree-merge-word-with-previous-merge.png" title="fig:Syntax-tree-merge-word-with-previous-merge.png" width="100" alt="Syntax-tree-merge-word-with-previous-merge.png" /></li>
-</ul></li>
-</ul>
-<h4 id="merge_terminology">Merge Terminology</h4>
-<h5 id="mergeab_">Merge(a,b)-&gt;</h5>
-<figure>
-<img src="img/syntax-tree-merge.png" title="syntax-tree-merge.png" width="75" alt="" /><figcaption>Syntax-tree-merge.png</figcaption>
-</figure>
-<ul>
-<li>but what is X?
-<ul>
-<li>X will be a "projection" of either 'a' or 'b'. That is, either 'a' or 'b' will pass on some of its properties (or features) to X.<br />
-<img src="img/syntax-tree-merge-projection-a.png" title="fig:Syntax-tree-merge-projection-a.png" width="75" alt="Syntax-tree-merge-projection-a.png" /></li>
-<li>Think of the x' notation as indicating that the "xness" of this constituent has been passed up to this node from somewhere else.</li>
-</ul></li>
-</ul>
-<h5 id="projection">Projection</h5>
-<ul>
-<li><strong>Maximal Projection</strong> or <strong>Phrase</strong>:
-<ul>
-<li>When the properties of a node stop projecting to the next node up, we call the highest relevant projection "a maximal projection" or a "phrase".</li>
-<li>For example, here when b stops projecting (above d and b') we have "bP" or a "b phrase". Same for "eP".<br />
-<img src="img/syntax-tree-maximal-projection.png" title="fig:Syntax-tree-maximal-projection.png" width="175" alt="Syntax-tree-maximal-projection.png" /></li>
-</ul></li>
-<li>What determines which node projects?</li>
-<li>Notion of 'head'
-<ul>
-<li>A <strong>head</strong> is a terminal node that determines the properties of a constituent. It cannot be formed by the merge operation.</li>
-</ul></li>
-<li><strong>X<sup>0</sup></strong>: the head</li>
-<li><strong>XP</strong>: the maximal projection</li>
-<li><strong>X</strong>': all intermediate projections</li>
-</ul>
-<h5 id="x_schema">X'-schema</h5>
-<figure>
-<img src="img/syntax-tree-x&#39;-schema.png" title="syntax-tree-x&#39;-schema.png" width="125" alt="" /><figcaption>Syntax-tree-x'-schema.png</figcaption>
-</figure>
-<ul>
-<li>X<sup>0</sup> is the head of the maximal projection XP.</li>
-<li>What about alpha, beta, and gamma?
-<ul>
-<li>There are maximal projections.</li>
-</ul></li>
-<li>The <strong>complement</strong> of X<sup>0</sup> is the sister of X<sup>0</sup>, that is, gamma.</li>
-<li>The <strong>specifier</strong> of the XP is the sister of the highest X', that is, alpha.</li>
-<li>An <strong>adjunct</strong> is a merged constituent that is neither the complement nor the specifier.</li>
-<li>Representations of X':</li>
-<li>Do this <img src="img/syntax-trees-x&#39;-representation-01.png" title="fig:Syntax-trees-x&#39;-representation-01.png" width="50" alt="Syntax-trees-x&#39;-representation-01.png" /> or <img src="img/syntax-trees-x&#39;-representation-04.png" title="fig:Syntax-trees-x&#39;-representation-04.png" width="100" alt="Syntax-trees-x&#39;-representation-04.png" /></li>
-<li>Do NOT do this <img src="img/syntax-trees-x&#39;-representation-02.png" title="fig:Syntax-trees-x&#39;-representation-02.png" width="50" alt="Syntax-trees-x&#39;-representation-02.png" /> or <img src="img/syntax-trees-x&#39;-representation-03.png" title="fig:Syntax-trees-x&#39;-representation-03.png" width="50" alt="Syntax-trees-x&#39;-representation-03.png" /></li>
-</ul>
-<h5 id="which_node_projects">Which node projects</h5>
-<ul>
-<li>What happens when a verb merges with an NP (Noun Phrase)? Which one projects?
-<ul>
-<li>Whichever is the property of the constituent resulting from the merge.</li>
-</ul></li>
-<li>Distributional Tests:
-<ul>
-<li>Given verb "saw" and NP "the fluffy dog" the resulting constituent "saw the fluffy dog" behaves like a verb. Let's test</li>
-<li>It cannot appear as the subject of a sentence, the way an NP can:
-<ol>
-<li>[He] smiled
-<ul>
-<li>*[Saw the fluffy dog] smiled</li>
-</ul></li>
-</ol></li>
-<li>It cannot appear as an object, like an NP can:
-<ol>
-<li>I like [him]
-<ul>
-<li>I like *[saw the fluffy dog]</li>
-</ul></li>
-</ol></li>
-<li>It CAN appear as a predicate, the way a verb (VP) can:
-<ol>
-<li>He [left]
-<ul>
-<li>He [saw the fluffy dog]</li>
-</ul></li>
-</ol></li>
-</ul></li>
-</ul>
-<h5 id="topmost_node_of_a_sentence_inflection">Topmost Node of a Sentence (Inflection)</h5>
-<figure>
-<img src="img/syntax-tree-topmost-node-question-mark.png" title="syntax-tree-topmost-node-question-mark.png" width="400" alt="" /><figcaption>Syntax-tree-topmost-node-question-mark.png</figcaption>
-</figure>
-<ul>
-<li>For the tree above, what should the topmost node be, the one marked "?"?</li>
-<li>Another way to ask this is, of which head is this sentence a maximal projection?</li>
-<li>For this class we'll take it as a given that the sentence is a maximal projection of a head that carries the features for tense and subject agreement.</li>
-<li>We'll call this head "<strong>I<sup>0</sup></strong>" for "<strong>Inflection</strong>".</li>
-<li>In this sentence we have
-<ul>
-<li>Past tense</li>
-<li>3<sup>rd</sup> person singular</li>
-</ul></li>
-<li><img src="img/syntax-tree-topmost-node.png" title="fig:Syntax-tree-topmost-node.png" width="400" alt="Syntax-tree-topmost-node.png" /></li>
-<li>This assumption that a sentence is the project of an inflection head I<sup>0</sup> consists of two arguments:
-<ol>
-<li>Inflectional material like tense and agreement should be represented as a head separate from the verb. This is most likely because across all languages, inflection is represented differently, and is a change to base morphemes.</li>
-<li>This (inflectional) head is the head of the entire sentence. Axiom that will not be explained in this class.</li>
-</ol></li>
-</ul>
-<h2 id="assignment_01">Assignment 01</h2>
-<ul>
-<li>Please draw trees for the sentences below. I will use the application TreeForm.</li>
-</ul>
-<ol>
-<li>I saw him at the hotel where Susan announced that the president will be staying</li>
-<li>We left because John said that Mary was sick</li>
-<li>The fact that he is tall bothers him</li>
-</ol>
+  <h1 id="introduction">Introduction</h1>
+
+  <ul>
+    <li>That mental computations are performed not on a linear set of words but a hierarchical organized structure was an important discovery.</li>
+  </ul>
+
+  <h2 id="hypotheses_for_how_words_are_organized_in_a_sentence">Hypotheses for how words are organized in a sentence</h2>
+
+  <ul>
+    <li>H1: A sentence is a <u>collection of words</u>
+      <ul>
+        <li>False: There is nothing to distinguish the significance of word order in H1, but we know it's important.</li>
+      </ul>
+    </li>
+    <li>H2: A sentence is an <u>ordered collection of words</u>
+      <ul>
+        <li>False: There is nothing to specify what order is good or bad.</li>
+        <li>Some substrings consist of words that "belong" more together than others. They are more <strong>cohesive</strong>.</li>
+      </ul></li>
+    <li>H3: A sentence is an <u>ordered collection of words groups by constituents</u></li>
+  </ul>
+
+  <h2 id="tests_for_cohesiveness_among_others">Tests for cohesiveness (among others)</h2>
+
+  <h3 id="substitution">Substitution</h3>
+
+  <ul>
+    <li>That author described <u>his novel</u> to <u>the publisher</u> yesterday.
+      <ul>
+        <li>That author described his novel to [him] yesterday.</li>
+        <li>That author described [it] to the publisher yesterday.</li>
+      </ul>
+    </li>
+    <li>This kind of substitution is not possible with non-cohesive strings.
+      <ul>
+        <li>Can you imagine substitutions for the underlined strings in the following sentence?
+          <ul>
+            <li>That author described his <u>novel to</u> the <u>publisher yesterday</u>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 id="movement">Movement</h3>
+
+  <ul>
+    <li>That author described <u>his novel</u> <u>to the publisher</u> yesterday.
+      <ul>
+        <li><em>His novel</em>, that author described to the publisher yesterday.</li>
+        <li><em>To the publisher</em>, that author described his novel yesterday.</li>
+      </ul>
+    </li>
+    <li>Movement isn't possible with non-cohesive substrings
+      <ul>
+        <li>Can you move the underlined substrings in the following sentence?</li>
+        <li>That author described his <u>novel to</u> the <u>publisher yesterday</u>.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 id="questionsfragment_answers">Questions/Fragment answers</h3>
+  <ul>
+    <li>That author described <u>his novel</u> to <u>the publisher</u> yesterday.
+      <ul>
+        <li>Question 1
+          <ul>
+            <li>Q: [What] did that author describe to the publisher yesterday?</li>
+            <li>A: [his novel]</li>
+          </ul>
+        </li>
+        <li>Question 2
+          <ul>
+            <li>Q: [Who] did that author describe his novel to yesterday?</li>
+            <li>A: [the publisher]</li>
+          </ul>
+        </li>
+        <li>Invalid:
+          <ul>
+            <li>Q: ...?</li>
+            <li>A: [novel to]</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 id="conclusions">Conclusions</h3>
+
+  <ul>
+    <li>"Cohesive substrings" = "constituents"</li>
+    <li>Note of caution:
+      <ul>
+        <li>Constituency tests work fine but they are unidirectional</li>
+        <li>If they succeed, we know that the relevant substring is a constituent</li>
+        <li>If they fail, then either
+          <ul>
+            <li>the substring is not a constituent</li>
+            <li>the substring is a constituent but the test failed for a different reason</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>So, grammar treats some substrings differently from others.</li>
+    <li>Some substrings form constituents, others do not.</li>
+  </ul>
+
+  <h2 id="organization_of_constituents">Organization of Constituents</h2>
+  <ul>
+    <li>Constituents are always <em>nested</em>. A constituent is <u><em>fully contained</em></u> in another constituent.</li>
+    <li>We never find partially overlapping constituents: * <span style="color:red">[</span>word 1 <span style="color:blue">[</span>word 2<span style="color:red">]</span> word 3<span style="color:blue">]</span></li>
+  </ul>
+
+  <h3 id="terminology_of_structural_relations">Terminology of Structural Relations</h3>
+  <ul>
+    <li><strong>Dominance</strong>:
+      <ul>
+        <li>A node α dominates a node β iff there is a descending path from α to β.</li>
+      </ul>
+    </li>
+    <li><strong>Mothers</strong>/<strong>Daughters</strong>/<strong>Sisters</strong>:
+      <ul>
+        <li>A node α is the <u>mother</u> of a node β iff α immediately dominates β.</li>
+        <li>β is the daughter of α.</li>
+        <li>β and ɣ are sisters iff β and ɣ have the same mother α.</li>
+      </ul>
+    </li>
+    <li><strong>Terminal nodes</strong>:
+      <ul>
+        <li>A node α is a terminal node iff α has no daughters.</li>
+      </ul>
+    </li>
+    <li><strong>Exhaustive dominance</strong>:
+      <ul>
+        <li>A node α exhaustively dominates a string S iff
+          <ol>
+            <li>α dominates every terminal t∈S</li>
+            <li>There is no terminal t'∉S that α dominates</li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Constituents</strong>:
+      <ul>
+        <li>Constituents are strings that are exhaustively dominated by a single node.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 id="branching">Branching</h3>
+  <ul>
+    <li>We will assume that branching is only binary.</li>
+  </ul>
+
+  <h3 id="syntactic_tree">Syntactic Tree</h3>
+  <ul>
+    <li>A syntactic tree is a binary branching tree. It is built by iteration of a structure-building operation which has been called "Merge".</li>
+  </ul>
+
+  <h3 id="merge">Merge</h3>
+  <ul>
+    <li>Merge takes two elements α and β, and forms a single, binary branching constituent out of them.
+      <ul>
+        <li>Merge of two words:<br />
+          <img src="img/syntax-tree-merge-two-words.png" title="fig:Syntax-tree-merge-two-words.png" width="100" alt="Syntax-tree-merge-two-words.png" />
+        </li>
+        <li>Merge of a word with a constituent formed by a previous iteration of Merge:<br />
+          <img src="img/syntax-tree-merge-word-with-previous-merge.png" title="fig:Syntax-tree-merge-word-with-previous-merge.png" width="100" alt="Syntax-tree-merge-word-with-previous-merge.png" />
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4 id="merge_terminology">Merge Terminology</h4>
+  <h5 id="mergeab_">Merge(a,b)-&gt;</h5>
+  <figure>
+    <img src="img/syntax-tree-merge.png" title="syntax-tree-merge.png" width="75" alt="" /><figcaption>Syntax-tree-merge.png</figcaption>
+  </figure>
+  <ul>
+    <li>but what is X?
+      <ul>
+        <li>X will be a "projection" of either 'a' or 'b'. That is, either 'a' or 'b' will pass on some of its properties (or features) to X.<br />
+          <img src="img/syntax-tree-merge-projection-a.png" title="fig:Syntax-tree-merge-projection-a.png" width="75" alt="Syntax-tree-merge-projection-a.png" />
+        </li>
+        <li>Think of the x' notation as indicating that the "xness" of this constituent has been passed up to this node from somewhere else.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h5 id="projection">Projection</h5>
+  <ul>
+    <li><strong>Maximal Projection</strong> or <strong>Phrase</strong>:
+      <ul>
+        <li>When the properties of a node stop projecting to the next node up, we call the highest relevant projection "a maximal projection" or a "phrase".</li>
+        <li>For example, here when b stops projecting (above d and b') we have "bP" or a "b phrase". Same for "eP".<br />
+          <img src="img/syntax-tree-maximal-projection.png" title="fig:Syntax-tree-maximal-projection.png" width="175" alt="Syntax-tree-maximal-projection.png" />
+        </li>
+      </ul>
+    </li>
+    <li>What determines which node projects?</li>
+    <li>Notion of 'head'
+      <ul>
+        <li>A <strong>head</strong> is a terminal node that determines the properties of a constituent. It cannot be formed by the merge operation.</li>
+      </ul>
+    </li>
+    <li><strong>X<sup>0</sup></strong>: the head</li>
+    <li><strong>XP</strong>: the maximal projection</li>
+    <li><strong>X</strong>': all intermediate projections</li>
+  </ul>
+
+  <h5 id="x_schema">X'-schema</h5>
+  <figure>
+    <img src="img/syntax-tree-x&#39;-schema.png" title="syntax-tree-x&#39;-schema.png" width="125" alt="" /><figcaption>Syntax-tree-x'-schema.png</figcaption>
+  </figure>
+  <ul>
+    <li>X<sup>0</sup> is the head of the maximal projection XP.</li>
+    <li>What about alpha, beta, and gamma?
+      <ul>
+        <li>There are maximal projections.</li>
+      </ul>
+    </li>
+    <li>The <strong>complement</strong> of X<sup>0</sup> is the sister of X<sup>0</sup>, that is, gamma.</li>
+    <li>The <strong>specifier</strong> of the XP is the sister of the highest X', that is, alpha.</li>
+    <li>An <strong>adjunct</strong> is a merged constituent that is neither the complement nor the specifier.</li>
+    <li>Representations of X':</li>
+    <li>Do this <img src="img/syntax-trees-x&#39;-representation-01.png" title="fig:Syntax-trees-x&#39;-representation-01.png" width="50" alt="Syntax-trees-x&#39;-representation-01.png" /> or <img src="img/syntax-trees-x&#39;-representation-04.png" title="fig:Syntax-trees-x&#39;-representation-04.png" width="100" alt="Syntax-trees-x&#39;-representation-04.png" /></li>
+    <li>Do NOT do this <img src="img/syntax-trees-x&#39;-representation-02.png" title="fig:Syntax-trees-x&#39;-representation-02.png" width="50" alt="Syntax-trees-x&#39;-representation-02.png" /> or <img src="img/syntax-trees-x&#39;-representation-03.png" title="fig:Syntax-trees-x&#39;-representation-03.png" width="50" alt="Syntax-trees-x&#39;-representation-03.png" /></li>
+  </ul>
+
+  <h5 id="which_node_projects">Which node projects</h5>
+  <ul>
+    <li>What happens when a verb merges with an NP (Noun Phrase)? Which one projects?
+      <ul>
+        <li>Whichever is the property of the constituent resulting from the merge.</li>
+      </ul>
+    </li>
+    <li>Distributional Tests:
+      <ul>
+        <li>Given verb "saw" and NP "the fluffy dog" the resulting constituent "saw the fluffy dog" behaves like a verb. Let's test</li>
+        <li>It cannot appear as the subject of a sentence, the way an NP can:
+          <ol>
+            <li>[He] smiled
+              <ul>
+                <li>*[Saw the fluffy dog] smiled</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li>It cannot appear as an object, like an NP can:
+          <ol>
+            <li>I like [him]
+              <ul>
+                <li>I like *[saw the fluffy dog]</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li>It CAN appear as a predicate, the way a verb (VP) can:
+          <ol>
+            <li>He [left]
+              <ul>
+                <li>He [saw the fluffy dog]</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h5 id="topmost_node_of_a_sentence_inflection">Topmost Node of a Sentence (Inflection)</h5>
+  <figure>
+    <img src="img/syntax-tree-topmost-node-question-mark.png" title="syntax-tree-topmost-node-question-mark.png" width="400" alt="" /><figcaption>Syntax-tree-topmost-node-question-mark.png</figcaption>
+  </figure>
+  <ul>
+    <li>For the tree above, what should the topmost node be, the one marked "?"?</li>
+    <li>Another way to ask this is, of which head is this sentence a maximal projection?</li>
+    <li>For this class we'll take it as a given that the sentence is a maximal projection of a head that carries the features for tense and subject agreement.</li>
+    <li>We'll call this head "<strong>I<sup>0</sup></strong>" for "<strong>Inflection</strong>".</li>
+    <li>In this sentence we have
+      <ul>
+        <li>Past tense</li>
+        <li>3<sup>rd</sup> person singular</li>
+      </ul>
+    </li>
+    <li><img src="img/syntax-tree-topmost-node.png" title="fig:Syntax-tree-topmost-node.png" width="400" alt="Syntax-tree-topmost-node.png" /></li>
+    <li>This assumption that a sentence is the project of an inflection head I<sup>0</sup> consists of two arguments:
+      <ol>
+        <li>Inflectional material like tense and agreement should be represented as a head separate from the verb. This is most likely because across all languages, inflection is represented differently, and is a change to base morphemes.</li>
+        <li>This (inflectional) head is the head of the entire sentence. Axiom that will not be explained in this class.</li>
+      </ol>
+    </li>
+  </ul>
+
+  <h2 id="assignment_01">Assignment 01</h2>
+  <ul>
+    <li>Please draw trees for the sentences below. I will use the application TreeForm.</li>
+  </ul>
+  <ol>
+    <li>I saw him at the hotel where Susan announced that the president will be staying</li>
+    <li>We left because John said that Mary was sick</li>
+    <li>The fact that he is tall bothers him</li>
+  </ol>
 </body>
 </html>
