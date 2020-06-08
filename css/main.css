@@ -266,3 +266,24 @@ textarea {
 /* ==========================================================================
    Pete's styles
    ========================================================================== */
+
+#table-of-contents {
+  position: fixed; /* Fixed sidebar, stay in place on scroll */
+  height: 100%; /* Full height */
+  left: 0; /* Stay to the left */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  margin: 5px 10px 5px 5px;
+}
+
+.toc-h1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.toc-h2 {
+  font-size: 12px;
+}
+
+.main {
+  margin-left: 200px;
+}
