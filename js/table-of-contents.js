@@ -7,6 +7,7 @@ var tableOfContents = new Component('#table-of-contents', {
   data: {
   },
   template: function (props) {
+    // Get headings tags and put into an array
     var headings = Array.prototype.slice.call(
       document.querySelectorAll("h1, h2, h3, h4, h5, h6")
     );
