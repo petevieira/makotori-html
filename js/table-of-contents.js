@@ -18,9 +18,9 @@ var tableOfContents = new Component('#table-of-contents', {
       // Set id of heading element
       h.setAttribute("id", id);
       // Create paragraph element with class based on heading level for styling
-      var tocHeading = '<p class="toc-h' + h.tagName.substring(1) + '">';
-      // Add link
-      tocHeading += '<a href="#' + id + '">' + h.innerHTML + '</a>';
+      var tocHeading =
+        '<p class="toc-h' + h.tagName.substring(1) + '">' +
+        '<a href="#' + id + '">' + h.innerHTML + '</a>';
       // Return heading HTML
       return tocHeading;
     }).join('');
