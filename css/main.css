@@ -285,6 +285,11 @@ nav {
   display: block;
 }
 
+.center-horizontally {
+  margin: auto;
+  width: 50%;
+}
+
 #table-of-contents {
   position: fixed; /* Fixed sidebar, stay in place on scroll */
   height: 100%; /* Full height */

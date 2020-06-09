@@ -21,8 +21,12 @@ var navbar = new Component('nav', {
            +    '</button>'
            +    '<div class="dropdown-content">';
       // Add dropdown content items
-      html += value.map(function (item, index) {
-        return    '<a href="#">' + item + '</a>';
+      html += value.map(function (item) {
+        // Create html file name for link by converting name of page to
+        // lowercase and replace spaces with dashes
+        var link = item.toLowerCase().replace(/ /g, '-') + '.html';
+        console.log("link: " + link);
+        return    '<a href="' + link + '">' + item + '</a>';
       }).join('');
       // Close dropdown-content div and dropdown div
       html +=   '</div>'
