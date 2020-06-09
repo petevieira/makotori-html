@@ -267,6 +267,24 @@ textarea {
    Pete's styles
    ========================================================================== */
 
+nav {
+  overflow: hidden;
+}
+
+.dropdown {
+  float: left;
+}
+
+.dropdown-content {
+  display: none;
+}
+.dropdown-content a {
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 #table-of-contents {
   position: fixed; /* Fixed sidebar, stay in place on scroll */
   height: 100%; /* Full height */
