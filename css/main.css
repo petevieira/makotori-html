@@ -291,11 +291,32 @@ nav {
 }
 
 #table-of-contents {
-  position: fixed; /* Fixed sidebar, stay in place on scroll */
-  height: 100%; /* Full height */
-  left: 0; /* Stay to the left */
+  /*position: fixed;  Fixed sidebar, stay in place on scroll */
+  max-height: 200px;
+  overflow: auto;
+  max-width: 200px;
+  /*height: 100%;  Full height */
+  /*left: 0;  Stay to the left */
   overflow-x: hidden; /* Disable horizontal scroll */
-  margin: 5px 10px 5px 5px;
+  margin: 5px 10px 5px 100px;
+}
+#table-of-contents a {
+  text-decoration: none;
+}
+#table-of-contents a:link {
+  text-decoration: none;
+  color: blue;
+}
+#table-of-contents a:visited {
+  text-decoration: none;
+  color: blue;
+}
+#table-of-contents a:hover {
+  text-decoration: underline;
+  color: green;
+}
+#table-of-contents a:active {
+  text-decoration: underline;
 }
 
 .toc-h1 {
@@ -308,5 +329,6 @@ nav {
 }
 
 .main {
-  margin-left: 200px;
+  margin-left: 100px;
+  margin-right: 100px
 }
