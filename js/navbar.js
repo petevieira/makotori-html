@@ -24,7 +24,9 @@ var navbar = new Component('nav', {
       html += value.map(function (item) {
         // Create html file name for link by converting name of page to
         // lowercase and replace spaces with dashes
-        var link = item.toLowerCase().replace(/ /g, '-') + '.html';
+        var link =
+          key.toLowerCase().replace(/ /g, '-') + '/' +
+          item.toLowerCase().replace(/ /g, '-') + '.html';
         return    '<a href="' + link + '">' + item + '</a>';
       }).join('');
       // Close dropdown-content div and dropdown div
